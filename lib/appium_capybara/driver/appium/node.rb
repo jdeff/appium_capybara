@@ -1,5 +1,19 @@
 module Appium::Capybara
   class Appium::Capybara::Node < Capybara::Selenium::Node
+    def all_text
+      text = native.text
+
+      if text.nil? || text.length <= 0
+        text = value
+      end
+
+      if text.nil? || text.length <= 0
+        text = label
+      end
+
+      Capybara::Helpers.normalize_whitespace(text)
+    end
+
     def value
       native.value
     end
